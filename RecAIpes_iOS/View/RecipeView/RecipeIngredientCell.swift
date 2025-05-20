@@ -21,7 +21,7 @@ struct RecipeIngredientCell: View {
             
             Text(getIngredientBody(ingredient))
         }
-        .frame(maxWidth: .infinity)
+        .frame(maxWidth: .infinity, maxHeight: .infinity)
         .frame(minHeight: 30)
         .padding(.vertical, 5)
         .background(.white)

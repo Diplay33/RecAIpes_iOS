@@ -10,7 +10,7 @@ import SwiftUI
 struct RecipeHeaderView: View {
     var body: some View {
         VStack(alignment: .center, spacing: 8) {            
-            Text("Spaghettis à la Carbonara")
+            Text("Homards Thermidor à la Française")
                 .font(.title2)
                 .fontDesign(.rounded)
                 .fontWeight(.bold)

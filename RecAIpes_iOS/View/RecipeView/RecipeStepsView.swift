@@ -9,12 +9,22 @@ import SwiftUI
 
 struct RecipeStepsView: View {
     let idleRecipe: String = """
-    1. Portez à ébullition un faitout d'eau salée. Plongez-y les spaghetti et laissez-les cuire environ 12 min, jusqu'à ce qu'ils soient al dente.
-    2. Pendant la cuisson des spaghetti, faites revenir les lardons à sec dans une poêle, jusqu'à ce qu'ils soient bien dorés.
-    3. Baissez le feu et incorporez la crème fraîche. Salez légèrement, poivrez généreusement et ajoutez les jaunes d'oeufs, en fouettant pour qu'ils ne cuisent pas.
-    4. Rectifiez l'assaisonnement.
-    5. Egouttez les pâtes. Versez-les dans la sauteuse, mélangez et transvasez dans un plat de service.
-    6. Servez en présentant le parmesan à part.    
+    1. Préchauffez votre four à 210°C (thermostat 7).
+    2. Plongez les homards vivants 20 min dans de l'eau bouillante salée. Ensuite, enlevez la
+    queue et dégagez la chair.
+    3. Dans une poêle, faites sauter les champignons préalablement émincés dans 50 g de
+    beurre.
+    4. Ajoutez les morceaux de homard dans la poêle avec les champignons, mélangez et
+    flambez le tout avec 3 cuillères à soupe de cognac.
+    5. Arrosez le mélange de 3 cuillères à soupe de vin blanc sec, réduisez le feu et laissez
+    mijoter à feu doux pendant 10 minutes.
+    6. Filtrez le contenu de la poêle pour récupérer le jus de cuisson dans une casserole.
+    7. Mélangez hors du feu le jus de cuisson avec 2 jaunes d'oeufs et 3 cuillères à soupe de
+    crème fraîche. Ajoutez le reste du beurre et remuez bien.
+    8. Disposez les carapaces de homard dans un plat à gratin, remplissez-les avec la
+    préparation de homard et champignons. Nappez avec la sauce, puis saupoudrez de gruyère
+    râpé.
+    9. Enfournez pour 10 à 15 min jusqu'à ce que le dessus soit bien doré et gratiné.  
     """
     
     var body: some View {
@@ -59,7 +69,7 @@ struct RecipeStepsView: View {
             }
             
             let stepText = nsParagraph.substring(with: NSRange(location: start, length: end - start)).trimmingCharacters(in: .whitespacesAndNewlines)
-            steps.append(stepText)
+            steps.append(stepText.replacingOccurrences(of: "\n", with: " "))
         }
         
         return steps
