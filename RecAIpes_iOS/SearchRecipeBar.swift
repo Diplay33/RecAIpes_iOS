@@ -27,7 +27,7 @@ struct SearchRecipeBar: View {
                     .frame(height: 40)
                     .padding(.horizontal, 8)
                     .background(
-                        RoundedRectangle(cornerRadius: 15)
+                        RoundedRectangle(cornerRadius: 12)
                             .fill(Color.accentColor)
                     )
                     .foregroundColor(.white)
