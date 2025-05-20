@@ -13,15 +13,33 @@ struct MainView: View {
     var body: some View {
         NavigationStack {
             ScrollView {
+                Spacer()
+                    .frame(height: 40)
+                
                 SearchRecipeBar(dishTitle: $dishTitle)
                 
                 Spacer()
-                    .frame(height: 50)
+                    .frame(height: 40)
                 
                 RecipeMainView()
             }
             .background(Color("Background"))
-            .navigationTitle(Text("RecAIpe"))
+            .navigationBarTitleDisplayMode(.inline)
+            .toolbar {
+                ToolbarItem(placement: .principal) {
+                    HStack(spacing: 0) {
+                        Text("Rec")
+
+                        Text("AI")
+                            .foregroundStyle(Color.accentColor)
+                        
+                        Text("pe")
+                    }
+                    .font(.title)
+                    .fontDesign(.rounded)
+                    .fontWeight(.bold)
+                }
+            }
         }
     }
 }
