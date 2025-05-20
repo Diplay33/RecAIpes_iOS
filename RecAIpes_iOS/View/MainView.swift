@@ -8,10 +8,17 @@
 import SwiftUI
 
 struct MainView: View {
+    @State var dishTitle: String = ""
+    
     var body: some View {
         NavigationStack {
             ScrollView {
-                SearchRecipeBar()
+                SearchRecipeBar(dishTitle: $dishTitle)
+                
+                Spacer()
+                    .frame(height: 50)
+                
+                RecipeMainView()
             }
             .background(Color("Background"))
             .navigationTitle(Text("RecAIpe"))
