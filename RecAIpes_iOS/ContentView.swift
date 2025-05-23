@@ -10,28 +10,38 @@ import Lottie
 
 struct ContentView: View {
     @State var recipeFiles: [RecipeFile] = []
+    @State var isLoading: Bool = true
     
     var body: some View {
         NavigationStack {
             ZStack {
                 if recipeFiles.isEmpty {
                     ZStack {
-                        LottieView {
-                            try await DotLottieFile
-                                .loadedFrom(url: URL(string: "https://lottie.host/cdd03874-19df-4769-b713-37a3f6efa6b5/lIlrtCJkxb.lottie")!)
+                        if isLoading {
+                            ProgressView("Chargement des données en cours...")
+                                .controlSize(.large)
+                                .font(.title2)
+                                .fontWeight(.semibold)
+                                .multilineTextAlignment(.center)
                         }
-                        .looping()
-                        .frame(width: 250, height: 250)
-                        .offset(CGSize(width: 0, height: -40))
-                        
-                        Text("Aucune donnée présente dans la base de données...")
-                            .foregroundStyle(.accent)
-                            .font(.title2)
-                            .fontWeight(.bold)
-                            .fontDesign(.rounded)
-                            .multilineTextAlignment(.center)
-                            .frame(maxHeight: .infinity, alignment: .bottom)
-                            .padding(.bottom, 30)
+                        else {
+                            LottieView {
+                                try await DotLottieFile
+                                    .loadedFrom(url: URL(string: "https://lottie.host/cdd03874-19df-4769-b713-37a3f6efa6b5/lIlrtCJkxb.lottie")!)
+                            }
+                            .looping()
+                            .frame(width: 250, height: 250)
+                            .offset(CGSize(width: 0, height: -40))
+                            
+                            Text("Aucun fichier de recette dans la base de données...")
+                                .foregroundStyle(.accent)
+                                .font(.title2)
+                                .fontWeight(.bold)
+                                .fontDesign(.rounded)
+                                .multilineTextAlignment(.center)
+                                .frame(maxHeight: .infinity, alignment: .bottom)
+                                .padding(.bottom, 30)
+                        }
                     }
                     .padding()
                     .frame(maxWidth: .infinity)
@@ -71,7 +81,10 @@ struct ContentView: View {
                 }
             }
             .onAppear {
-                RecipeFiles.getAllRecipeFiles { self.recipeFiles = $0 }
+                RecipeFiles.getAllRecipeFiles {
+                    self.recipeFiles = $0
+                    self.isLoading = false
+                }
             }
         }
     }
