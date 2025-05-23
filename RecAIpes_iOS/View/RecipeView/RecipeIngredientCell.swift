@@ -14,12 +14,15 @@ struct RecipeIngredientCell: View {
         VStack(spacing: 0) {
             if let quantity = getIngredientQuantity(ingredient) {
                 Text(quantity)
+                    .font(.title3)
                     .fontWeight(.bold)
                     .fontDesign(.rounded)
                     .foregroundStyle(Color.accentColor)
             }
             
             Text(getIngredientBody(ingredient))
+                .multilineTextAlignment(.center)
+                .padding(.horizontal)
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
         .frame(minHeight: 30)
