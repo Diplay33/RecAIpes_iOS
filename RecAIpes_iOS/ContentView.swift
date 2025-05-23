@@ -6,16 +6,64 @@
 //
 
 import SwiftUI
+import Lottie
 
 struct ContentView: View {
     var body: some View {
-        VStack {
-            Image(systemName: "globe")
-                .imageScale(.large)
-                .foregroundStyle(.tint)
-            Text("Hello, world!")
+        NavigationStack {
+            ZStack {
+                ZStack {
+                    LottieView {
+                        try await DotLottieFile
+                            .loadedFrom(url: URL(string: "https://lottie.host/cdd03874-19df-4769-b713-37a3f6efa6b5/lIlrtCJkxb.lottie")!)
+                    }
+                    .looping()
+                    .frame(width: 250, height: 250)
+                    .offset(CGSize(width: 0, height: -40))
+                    
+                    Text("Aucune donnée présente dans la base de données...")
+                        .foregroundStyle(.accent)
+                        .font(.title2)
+                        .fontWeight(.bold)
+                        .fontDesign(.rounded)
+                        .multilineTextAlignment(.center)
+                        .frame(maxHeight: .infinity, alignment: .bottom)
+                        .padding(.bottom, 30)
+                }
+                .padding()
+                .frame(maxWidth: .infinity)
+                .frame(height: 250)
+                .background(.white)
+                .clipShape(RoundedRectangle(cornerRadius: 15))
+                .padding(.horizontal)
+                .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .center)
+                .shadow(color: Color.white.opacity(0.6), radius: 5, x: -4, y: -4)
+                .shadow(color: Color(red: 0.6, green: 0.7, blue: 0.6).opacity(0.25), radius: 6, x: 4, y: 4)
+            }
+            .background(Color("Background"))
+            .navigationBarTitleDisplayMode(.inline)
+            .toolbar {
+                ToolbarItem(placement: .principal) {
+                    HStack(spacing: 0) {
+                        Text("Rec")
+                        
+                        Text("AI")
+                            .foregroundStyle(Color.accentColor)
+                        
+                        Text("pe")
+                    }
+                    .font(.title)
+                    .fontDesign(.rounded)
+                    .fontWeight(.bold)
+                }
+            }
+            //            ScrollView {
+            //                Text("Hello, World!")
+            //                    .shadow(radius: 5)
+            //            }
+            //            .frame(maxWidth: .infinity, maxHeight: .infinity)
+            //            .searchable(text: .constant(""), prompt: Text("Rechercher par titre, ingrédient..."))
         }
-        .padding()
     }
 }
 
