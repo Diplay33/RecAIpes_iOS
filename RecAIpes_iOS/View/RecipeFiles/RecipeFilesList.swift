@@ -24,8 +24,11 @@ struct RecipeFilesList: View {
                             .font(.title3)
                             .fontWeight(.semibold)
                             .fontDesign(.rounded)
+                            .lineLimit(2)
 
                         Text("Créé le 23/05/2025 à 14:32")
+                            .font(.callout)
+                            .foregroundStyle(.secondary)
                     }
                     
                     Spacer()
