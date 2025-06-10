@@ -18,6 +18,11 @@ struct RecipeFilesList: View {
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
         .searchable(text: .constant(""), placement: .navigationBarDrawer(displayMode: .always), prompt: Text("Rechercher par titre, ingrédient..."))
+        .refreshable {
+            RecipeFiles.getAllRecipeFiles {
+                self.recipeFiles = $0
+            }
+        }
     }
 }
 
