@@ -7,8 +7,9 @@
 
 import Foundation
 
-struct RecipeFile {
+struct RecipeFile: Identifiable {
     var id: String
+    var title: String
     var url: String
 }
 
