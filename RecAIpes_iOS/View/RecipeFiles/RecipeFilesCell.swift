@@ -8,6 +8,8 @@
 import SwiftUI
 
 struct RecipeFilesCell: View {
+    @State var recipeShown: Bool = false
+    
     let file: RecipeFile
     var dayFormatter: DateFormatter {
         let formatter = DateFormatter()
@@ -21,39 +23,45 @@ struct RecipeFilesCell: View {
     }
     
     var body: some View {
-        HStack {
-            Image(systemName: "externaldrive.badge.questionmark")
-                .resizable()
-                .scaledToFit()
-                .frame(width: 60, height: 60)
-            
-            VStack(alignment: .leading) {
-                Text(file.title)
-                    .font(.title3)
-                    .fontWeight(.semibold)
-                    .fontDesign(.rounded)
-                    .lineLimit(2)
+        Button(action: { recipeShown = true }) {
+            HStack {
+                Image(systemName: "externaldrive.badge.questionmark")
+                    .resizable()
+                    .scaledToFit()
+                    .frame(width: 60, height: 60)
                 
-                ZStack {
-                    if let creationDate = file.creationDate as Date? {
-                        Text("Créé le \(dayFormatter.string(from: creationDate)) à \(hourFormatter.string(from: creationDate))")
+                VStack(alignment: .leading) {
+                    Text(file.title)
+                        .font(.title3)
+                        .fontWeight(.semibold)
+                        .fontDesign(.rounded)
+                        .lineLimit(2)
+                    
+                    ZStack {
+                        if let creationDate = file.creationDate as Date? {
+                            Text("Créé le \(dayFormatter.string(from: creationDate)) à \(hourFormatter.string(from: creationDate))")
+                        }
+                        else {
+                            Text("Date de création inconnue")
+                        }
                     }
-                    else {
-                        Text("Date de création inconnue")
-                    }
+                    .font(.callout)
+                    .foregroundStyle(.secondary)
                 }
-                .font(.callout)
-                .foregroundStyle(.secondary)
+                
+                Spacer()
             }
-            
-            Spacer()
+            .padding(.horizontal)
+            .background(.white)
+            .clipShape(RoundedRectangle(cornerRadius: 15))
+            .padding(.horizontal)
+            .shadow(color: Color.white.opacity(0.6), radius: 5, x: -4, y: -4)
+            .shadow(color: Color(red: 0.6, green: 0.7, blue: 0.6).opacity(0.25), radius: 6, x: 4, y: 4)
         }
-        .padding(.horizontal)
-        .background(.white)
-        .clipShape(RoundedRectangle(cornerRadius: 15))
-        .padding(.horizontal)
-        .shadow(color: Color.white.opacity(0.6), radius: 5, x: -4, y: -4)
-        .shadow(color: Color(red: 0.6, green: 0.7, blue: 0.6).opacity(0.25), radius: 6, x: 4, y: 4)
+        .buttonStyle(PlainButtonStyle())
+        .sheet(isPresented: $recipeShown) {
+            SafariView(url: URL(string: file.url)!)
+        }
     }
 }
 
