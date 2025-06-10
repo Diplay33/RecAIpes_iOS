@@ -11,6 +11,7 @@ struct RecipeFile: Identifiable {
     var id: String
     var title: String
     var url: String
+    var creationDate: Date?
 }
 
 struct RecipeFileDecoder: Decodable {

@@ -1,0 +1,62 @@
+//
+//  RecipeFilesCell.swift
+//  RecAIpes_iOS
+//
+//  Created by Jacques HU on 10/06/2025.
+//
+
+import SwiftUI
+
+struct RecipeFilesCell: View {
+    let file: RecipeFile
+    var dayFormatter: DateFormatter {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "dd/MM/yyyy"
+        return formatter
+    }
+    var hourFormatter: DateFormatter {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "HH:mm"
+        return formatter
+    }
+    
+    var body: some View {
+        HStack {
+            Image(systemName: "externaldrive.badge.questionmark")
+                .resizable()
+                .scaledToFit()
+                .frame(width: 60, height: 60)
+            
+            VStack(alignment: .leading) {
+                Text(file.title)
+                    .font(.title3)
+                    .fontWeight(.semibold)
+                    .fontDesign(.rounded)
+                    .lineLimit(2)
+                
+                ZStack {
+                    if let creationDate = file.creationDate as Date? {
+                        Text("Créé le \(dayFormatter.string(from: creationDate)) à \(hourFormatter.string(from: creationDate))")
+                    }
+                    else {
+                        Text("Date de création inconnue")
+                    }
+                }
+                .font(.callout)
+                .foregroundStyle(.secondary)
+            }
+            
+            Spacer()
+        }
+        .padding(.horizontal)
+        .background(.white)
+        .clipShape(RoundedRectangle(cornerRadius: 15))
+        .padding(.horizontal)
+        .shadow(color: Color.white.opacity(0.6), radius: 5, x: -4, y: -4)
+        .shadow(color: Color(red: 0.6, green: 0.7, blue: 0.6).opacity(0.25), radius: 6, x: 4, y: 4)
+    }
+}
+
+#Preview {
+    RecipeFilesCell(file: RecipeFile(id: "1", title: "Pizza reine", url: "", creationDate: Date()))
+}
