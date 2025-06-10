@@ -8,16 +8,18 @@
 import SwiftUI
 
 struct RecipeFilesList: View {
+    @State var searchText: String = ""
+    
     @Binding var recipeFiles: [RecipeFile]
     
     var body: some View {
         ScrollView {
-            ForEach(recipeFiles) { file in
+            ForEach(searchText.isEmpty ? recipeFiles : recipeFiles.filter { $0.title.lowercased().trimmingCharacters(in: .whitespacesAndNewlines).folding(options: .diacriticInsensitive, locale: .current).contains(searchText.lowercased().trimmingCharacters(in: .whitespacesAndNewlines).folding(options: .diacriticInsensitive, locale: .current)) }) { file in
                 RecipeFilesCell(file: file)
             }
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
-        .searchable(text: .constant(""), placement: .navigationBarDrawer(displayMode: .always), prompt: Text("Rechercher par titre, ingrédient..."))
+        .searchable(text: $searchText, placement: .navigationBarDrawer(displayMode: .always), prompt: Text("Rechercher par titre, ingrédient..."))
         .refreshable {
             RecipeFiles.getAllRecipeFiles {
                 self.recipeFiles = $0
