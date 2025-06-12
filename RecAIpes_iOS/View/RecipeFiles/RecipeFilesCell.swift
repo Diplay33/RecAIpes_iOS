@@ -25,10 +25,23 @@ struct RecipeFilesCell: View {
     var body: some View {
         Button(action: { recipeShown = true }) {
             HStack {
-                Image(systemName: "externaldrive.badge.questionmark")
-                    .resizable()
+                if let thumbnailLink = file.thumbnailUrl, let thumbnailUrl = URL(string: thumbnailLink) {
+                    AsyncImage(url: thumbnailUrl) { image in
+                        image
+                            .resizable()
+                    } placeholder: {
+                        ProgressView()
+                    }
                     .scaledToFit()
                     .frame(width: 60, height: 60)
+                }
+                else {
+                    Image(systemName: "externaldrive.badge.questionmark")
+                        .resizable()
+                        .scaledToFit()
+                        .frame(width: 60, height: 60)                    
+                }
+                
                 
                 VStack(alignment: .leading) {
                     Text(file.title)

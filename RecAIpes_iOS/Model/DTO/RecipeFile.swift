@@ -11,6 +11,7 @@ struct RecipeFile: Identifiable {
     var id: String
     var title: String
     var url: String
+    var thumbnailUrl: String?
     var creationDate: Date?
 }
 
@@ -20,6 +21,7 @@ struct RecipeFileDecoder: Decodable {
     struct FileDecoder: Decodable {
         var idExterne: String
         var url: String
+        var thumbnailUrl: String?
         var tag1: String?
         var tag2: String?
         var tag3: String?

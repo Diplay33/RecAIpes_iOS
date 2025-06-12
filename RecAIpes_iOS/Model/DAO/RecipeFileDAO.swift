@@ -33,7 +33,7 @@ struct RecipeFileDAO {
                 let recipeFile = try JSONDecoder().decode(RecipeFileDecoder.self, from: data)
                 let dateFormatter = DateFormatter()
                 dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
-                completion(recipeFile.studentUploadReadingDTOS.map { RecipeFile(id: $0.idExterne, title: $0.tag2 ?? "Sans nom", url: $0.url, creationDate: dateFormatter.date(from: $0.tag3 ?? "")) })
+                completion(recipeFile.studentUploadReadingDTOS.map { RecipeFile(id: $0.idExterne, title: $0.tag2 ?? "Sans nom", url: $0.url, thumbnailUrl: $0.thumbnailUrl, creationDate: dateFormatter.date(from: $0.tag3 ?? "")) })
             } catch {
                 completion([])
             }
